@@ -9,8 +9,6 @@ import store from '@/store/index'
 
 import util from '@/libs/util.js'
 
-import { env } from '@/libs/util.storage'
-
 // 路由数据
 import routes from './routes'
 
@@ -20,25 +18,6 @@ Vue.use(VueRouter)
 const router = new VueRouter({
     routes
 })
-
-/// 权限类型
-const ptype = {
-    menu: 'menu',           // 菜单权限
-    resource: 'resource',   // 资源权限
-    feature: 'feature'      // 功能权限
-}
-
-const permissions = [
-    { id: 101, name: '超管', type: ptype.feature }, // 具备管理所有用户的权力 
-    { id: 102, name: '管理', type: ptype.feature }, // 具备管理成员的权力
-    { id: 201, name: '监控', type: ptype.menu },
-    { id: 202, name: '图表', type: ptype.menu },
-    { id: 203, name: '表格', type: ptype.menu },
-    { id: 204, name: '列表', type: ptype.menu },
-    { id: 205, name: '内容', type: ptype.menu },
-    { id: 206, name: '结果', type: ptype.menu },
-    { id: 207, name: '异常', type: ptype.menu }
-]
 
 /**
  * 路由拦截
@@ -58,10 +37,10 @@ router.beforeEach(async (to, from, next) => {
         // 这里暂时将cookie里是否存有token作为验证是否登录的条件
         // 请根据自身业务需要修改
         if (authCheck()) {
-            // 验证路由权限
+            // 验证菜单权限
             let route = to.matched.filter(r => r.path === to.fullPath)
             if (route.length === 1 && route[0].meta.perm) {
-                if (permCheck(route[0].meta.perm)) {
+                if (menuCheck(route.path, route[0].meta.perm)) {
                     next()
                 } else {
                     next({
@@ -90,11 +69,10 @@ router.beforeEach(async (to, from, next) => {
     }
 })
 
-const authCheck = function() {
-    let user = env.getUser()
+const authCheck = async function() {
+    let user = await store.dispatch('d2admin/user/get')
     if (!user) { return false }
-    let token = user.token
-    let expire = token.exp
+    let expire = user.exp
     let now = Math.ceil((new Date().getTime())/1000)
     if (now > expire) {
         return false
@@ -103,19 +81,39 @@ const authCheck = function() {
     return true
 }
 
-const permCheck = function(authorities) {
+// 检查菜单权限
+const menuCheck = async function(menu, authorities) {
     // 获取用户的权限
-    let user = env.getUser()
-    let perms = user.perms
-    let pass = true
-    authorities.forEach(p => {
-        if (perms.includes(p)) {
-            return
-        }
-        pass = false
-    })
+    let user = await store.dispatch('d2admin/user/get')
+    let menus = user.menus
+    if (menus.filter(d => d.path === menu)) {
+        return true
+    }
 
-    return pass
+    return false
+}
+
+// 检查资源权限
+const permissionCheck = async function(url) {
+    let user = await store.dispatch('d2admin/user/get')
+    let roles = user.roles
+    let perms = user.perms
+    if (roles.filter(d => d.id === 1) && perms.filter(d => d.id === 1)) { // 超级管理员
+        return true
+    } else {
+        let path = url.replace('/api/', '')
+        let pass = false
+        perms.forEach(d => {
+            if (d.path === path || path.startWith(d.path)) {
+                pass = true
+            }
+        })
+        if (pass) {
+            return true
+        }
+        
+        return false
+    }
 }
 
 router.afterEach(to => {

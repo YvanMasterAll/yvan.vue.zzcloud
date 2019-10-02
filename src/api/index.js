@@ -6,8 +6,7 @@ class API {
     /// 登录
     async signin(data) {
         return await request({
-            method: urls.signin.method, 
-            url: urls.signin.url,
+            api: urls.signin,
             params: data
         })
     }

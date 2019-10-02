@@ -29,6 +29,18 @@ export default {
                 resolve()
             })
         },
+        get: async function({ state, dispatch }) {
+            return await dispatch(
+                'd2admin/db/get',
+                {
+                    dbName: 'sys',
+                    path: 'user.info',
+                    defaultValue: {},
+                    user: true
+                },
+                { root: true }
+            )
+        },
         /**
          * @description 从数据库取用户数据
          * @param {Object} context

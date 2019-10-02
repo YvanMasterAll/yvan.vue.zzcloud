@@ -15,18 +15,18 @@ export const getStore = name => {
 
 /// 本地环境
 
-class Env {
-    constructor() {
+// class Env {
+//     constructor() {
 
-    }
+//     }
 
-    setUser(data) {
-        setStore('user', data)
-    }
+//     setUser(data) {
+//         setStore('user', data)
+//     }
 
-    getUser() {
-        return JSON.parse(getStore('user'))
-    }
-}
+//     getUser() {
+//         return JSON.parse(getStore('user'))
+//     }
+// }
 
-export const env = new Env()
+// export const env = new Env()

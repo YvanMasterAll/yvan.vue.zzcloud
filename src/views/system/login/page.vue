@@ -252,6 +252,8 @@ export default {
                     if (result.valid) {
                         // 重定向对象不存在则返回顶层路径
                         _this.$router.replace(_this.$route.query.redirect || '/')
+                    } else {
+                        _this.$message.error(result.msg)
                     }
                 } else {
                     // 登录表单校验失败

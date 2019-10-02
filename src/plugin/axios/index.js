@@ -3,9 +3,9 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 import util from '@/libs/util'
 import * as urls from '@/dataSourceConfig'
-import { env } from '@/libs/util.storage'
 import { RequestError, AuthFailed } from '@/libs/util.errors'
 import Vue from 'vue'
+import { permissionCheck } from '@/router'
 
 // 创建一个错误
 function errorCreate(msg) {
@@ -141,12 +141,24 @@ service.interceptors.response.use(
  * 其他更多拓展参看axios文档后 自行拓展
  * 注意：params中的数据会覆盖method url 参数，所以如果指定了这2个参数则不需要在params中带入
  */
-export default function request(option) {
+export default async function request(option) {
+    // 权限检查
+    if (option.api.auth) {
+        if (!permissionCheck(option.api.url)) {
+            Message({
+                message: '抱歉，你没有操作的权限',
+                type: 'error',
+                duration: 5 * 1000
+            })
+
+            return 
+        }
+    }
     console.log(process.env.VUE_APP_API + option.url)
     return new Promise((resolve, reject) => {
         let _option = {
-            method: option.method,
-            url: option.url,
+            method: option.api.method,
+            url: option.api.url,
             params: option.params,
             data: option.data
         }
@@ -157,8 +169,7 @@ export default function request(option) {
                 // 隐藏菊花
                 loading.close()
                 if (option.url === urls.signin.url && data.valid) {
-                    // 本地储存
-                    env.setUser(data.data)
+                    // 保存身份
                     util.cookies.set('token', data.msg)
                     window.location.href = '/#/'
                 }
