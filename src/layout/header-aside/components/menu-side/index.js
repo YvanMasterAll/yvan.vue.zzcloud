@@ -26,7 +26,7 @@ export default {
                         (menu.children === undefined
                             ? elMenuItem
                             : elSubmenu
-                        ).call(this, createElement, menu)
+                        ).call(this, createElement, menu, this.active)
                     )
                 ),
                 ...(this.aside.length === 0 && !this.asideCollapse
@@ -74,6 +74,12 @@ export default {
         '$route.fullPath': {
             handler(value) {
                 this.active = value
+                this.$nextTick(() => { // 这段代码已被项目移除, 但是为了让菜单选中效果正常激活, 所以在这里重新加上, 如果有更好的办法可以考虑取代它
+                    if (this.aside.length > 0 && this.$refs.menu) {
+                        // console.log(this.$refs.menu) // 菜单展开折叠还存在异常, 可以尝试通过reference找到修改它的办法
+                        this.$refs.menu.activeIndex = value
+                    }
+                })
             },
             immediate: true
         }

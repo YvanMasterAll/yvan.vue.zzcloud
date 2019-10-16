@@ -51,7 +51,7 @@ service.interceptors.request.use(
         const token = util.cookies.get('token')
         // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
         // config.headers['X-Token'] = token
-        config.headers.common['Authorization'] = 'Bearer ' + token
+        config.headers.common['Authorization'] = token
         return config
     },
     error => {
@@ -82,11 +82,11 @@ service.interceptors.response.use(
             window.location.href = '/#/login'
         }
         if (code === 410) { // (410)缺少资源权限
-            Message({
-                message: data.msg,
-                type: 'error',
-                duration: 5 * 1000
-            })
+            // Message({
+            //     message: data.msg,
+            //     type: 'error',
+            //     duration: 5 * 1000
+            // })
         }
         if (code === 0) { // 测试数据
             return data.data
@@ -154,7 +154,7 @@ export default async function request(option) {
             return 
         }
     }
-    console.log(process.env.VUE_APP_API + option.url)
+    console.log(process.env.VUE_APP_API + option.api.url)
     return new Promise((resolve, reject) => {
         let _option = {
             method: option.api.method,
@@ -170,7 +170,7 @@ export default async function request(option) {
                 loading.close()
                 if (option.url === urls.signin.url && data.valid) {
                     // 保存身份
-                    util.cookies.set('token', data.msg)
+                    // util.cookies.set('token', data.msg)
                     window.location.href = '/#/'
                 }
                 resolve(data)

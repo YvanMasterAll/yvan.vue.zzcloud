@@ -12,14 +12,14 @@ export default [
                         total: 1000
                     },
                     list: Repeat(pageSize, {
-                        key: '@guid',
-                        'value|1': [10, 100, 200, 500],
-                        type: '@boolean',
-                        admin: '@cname',
-                        adminNote: '@cparagraph(0.5)',
-                        dateTimeCreat: '@datetime',
-                        used: '@boolean',
-                        dateTimeUse: '@datetime'
+                        'id|+1': 1,
+                        name: '@cname',
+                        phone: '18888888888',
+                        email: '@email',
+                        dept: { name: '研发部' },
+                        job: {name: '全栈开发' },
+                        state: 'on',
+                        create_at: Date.now()
                     })
                 }
             }

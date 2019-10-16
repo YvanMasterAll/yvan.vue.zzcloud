@@ -9,7 +9,8 @@ export default {
     },
     // 侧边栏默认折叠状态
     menu: {
-        asideCollapse: false
+        asideCollapse: false,
+        auth: true // 菜单权限认证
     },
     // 在读取持久化数据失败时默认页面
     page: {

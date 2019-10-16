@@ -1,6 +1,7 @@
 import cookies from './util.cookies'
 import db from './util.db'
 import log from './util.log'
+var moment = require('moment')
 
 const util = {
     cookies,
@@ -31,6 +32,15 @@ util.open = function(url) {
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(document.getElementById('d2admin-link-temp'))
+}
+
+/// 日期格式化
+util.toDateString = function(date) {
+    let format = "YYYY-MM-DD HH:mm:ss"
+    if (date) {
+        return moment(date).format(format)
+    }
+    return moment().format(format)
 }
 
 export default util

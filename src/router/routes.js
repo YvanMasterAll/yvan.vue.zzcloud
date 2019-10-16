@@ -6,12 +6,14 @@ import charts from './modules/charts'
 import components from './modules/components'
 import element from './modules/element'
 import business from './modules/business'
+import admin from './modules/admin'
 
 import layoutHeaderAside from '@/layout/header-aside'
 
 // 由于懒加载页面太多的话会造成webpack热更新太慢，所以开发环境不使用懒加载，只有生产环境使用懒加载
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 
+let meta = { auth: false }
 /**
  * 在主框架内显示
  */
@@ -26,7 +28,8 @@ const frameIn = [
                 path: 'index',
                 name: 'index',
                 meta: {
-                    auth: true
+                    ...meta,
+                    auth: false
                 },
                 component: _import('system/index')
             },
@@ -35,8 +38,8 @@ const frameIn = [
                 path: 'log',
                 name: 'log',
                 meta: {
-                    title: '前端日志',
-                    auth: true
+                    ...meta,
+                    title: '前端日志'
                 },
                 component: _import('system/log')
             },
@@ -66,6 +69,7 @@ const frameIn = [
             }
         ]
     },
+    admin,
     playground,
     frame,
     d2Crud,
@@ -84,6 +88,7 @@ const frameOut = [
     {
         path: '/login',
         name: 'login',
+        meta: { public: true },
         component: _import('system/login')
     }
 ]

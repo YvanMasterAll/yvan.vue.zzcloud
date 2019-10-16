@@ -12,6 +12,12 @@ import '@/assets/svg-icons'
 import pluginError from '@/plugin/error'
 import pluginLog from '@/plugin/log'
 import pluginOpen from '@/plugin/open'
+import pluginPermission from '@/plugin/permission'
+import enums from '@/libs/util.enums'
+import setting from '@/setting'
+
+// 全局变量
+global.setting = setting
 
 export default {
     async install(Vue, options) {
@@ -20,6 +26,8 @@ export default {
         Vue.config.productionTip = false
         // 当前环境
         Vue.prototype.$env = process.env.NODE_ENV
+        // 常用枚举
+        Vue.prototype.$enums = enums
         // 当前的 baseUrl
         Vue.prototype.$baseUrl = process.env.BASE_URL
         // 当前版本
@@ -32,6 +40,7 @@ export default {
         Vue.use(pluginError)
         Vue.use(pluginLog)
         Vue.use(pluginOpen)
+        Vue.use(pluginPermission)
 
         // 测试方法
         test()

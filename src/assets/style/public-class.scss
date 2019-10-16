@@ -65,3 +65,34 @@ $sizes: (0, 5, 10, 15, 20);
 .#{$prefix}-pr { padding-right: 20px !important; }
 .#{$prefix}-pb { padding-bottom: 20px !important; }
 .#{$prefix}-pl { padding-left: 20px !important; }
+
+// 整理布局微调
+.logo-group {
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 3px 9px -3px;
+}
+
+.d2-theme-header {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 5px -2px;
+    height: 54px !important;
+}
+
+.d2-multiple-page-control .el-tabs__item {
+    line-height: 36px !important;
+    height: 36px !important;
+}
+
+.d2-header-right {
+    height: 54px !important;
+}
+
+.d2-theme-header .toggle-aside-btn {
+    height: 54px !important;
+}
+
+.d2-theme-container-main-header {
+    height: 37px !important;
+}
+
+.d2-multiple-page-control-group .el-button-group .el-button {
+    height: 37px;
+}

@@ -14,6 +14,8 @@ import demoBusiness from './modules/demo-business'
 import demoD2Crud from './modules/demo-d2-crud'
 // 第三方网页
 import demoFrame from './modules/demo-frame'
+// 系统管理
+import admin from './modules/admin'
 
 // 菜单 侧边栏
 export const menuAside = [
@@ -24,7 +26,8 @@ export const menuAside = [
     demoPlayground,
     demoBusiness,
     demoD2Crud,
-    demoFrame
+    demoFrame,
+    admin
 ]
 
 // 菜单 顶栏
@@ -34,6 +37,7 @@ export const menuHeader = [
         title: '首页',
         icon: 'home'
     },
+    admin,
     {
         title: '功能',
         icon: 'puzzle-piece',
