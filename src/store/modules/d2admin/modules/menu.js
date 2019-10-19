@@ -1,6 +1,7 @@
 import { uniqueId } from 'lodash'
 // 设置文件
 import setting from '@/setting.js'
+import { menuCheck } from '@/router'
 
 /**
  * 给菜单数据补充上 path 字段
@@ -105,18 +106,24 @@ export default {
          * @param {Object} state state
          * @param {Array} menu menu setting
          */
-        headerSet(state, menu) {
+        async headerSet(state, menu) {
+            let _menu = supplementMenuPath(menu)
+            // 检查权限
+            await menuCheck(_menu)
             // store 赋值
-            state.header = supplementMenuPath(menu)
+            state.header = _menu
         },
         /**
          * @description 设置侧边栏菜单
          * @param {Object} state state
          * @param {Array} menu menu setting
          */
-        asideSet(state, menu) {
+        async asideSet(state, menu) {
+            let _menu = supplementMenuPath(menu)
+            // 检查权限
+            await menuCheck(_menu)
             // store 赋值
-            state.aside = supplementMenuPath(menu)
+            state.aside = _menu
         }
     }
 }

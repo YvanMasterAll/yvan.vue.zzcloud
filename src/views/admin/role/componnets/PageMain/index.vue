@@ -40,10 +40,11 @@
                             </template>
                         </el-table-column>
                         
-                        <el-table-column label="操作" width="125" align="center">
+                        <el-table-column v-if="permissionCheck(['role/edit', 'role/del'])" label="操作" width="125" align="center">
                             <template slot-scope="scope">
-                                <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" style='margin-right: 4px;'/>
+                                <el-button v-permission="['role/edit']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" style='margin-right: 4px;'/>
                                 <el-popover
+                                    v-permission="['role/del']"
                                     :ref="scope.row.id"
                                     placement="top"
                                     width="180">
@@ -67,6 +68,7 @@
                             <span class="role-span">菜单分配</span>
                         </el-tooltip>
                         <el-button
+                            v-permission="['role/menu_edit']"
                             :disabled="!showButton"
                             :loading="menuLoading"
                             icon="el-icon-check"
@@ -91,7 +93,7 @@
                             <span class="role-span">权限分配</span>
                         </el-tooltip>
                         <el-button
-                            v-permission="['ADMIN','ROLES_ALL','ROLES_EDIT']"
+                            v-permission="['role/permission_edit']"
                             :disabled="!showButton"
                             :loading="permissionLoading"
                             icon="el-icon-check"
@@ -116,6 +118,7 @@
 </template>
 
 <script>
+import { permissionCheck } from '@/router'
 import util from '@/libs/util'
 import editDialog from '../EditDialog'
 import api from '@/api'
@@ -163,6 +166,7 @@ export default {
         }
     },
     methods: {
+        permissionCheck,
         toDateString: util.toDateString,
         toScopeString(scope) {
             if (scope === 'all') { return '全部' }
@@ -221,25 +225,25 @@ export default {
             } else {
                 this.showButton = false
             }
-            this.menuIds = data.Menus.map(d => d.id)
+            data.Menus.forEach(d => {
+                // 去除菜单父节点, 避免子节点因为父节点的存在即使本身不存在也被选中的现象
+                d.pid !== 0 && this.menuIds.push(d.id)
+            })
             this.permissionIds = data.Permissions.map(d => d.id)
         },
         async saveMenu() {
             if (!this.currentRoleId) { return }
             this.menuLoading = true
             const params = { id: this.currentRoleId, menus: [] }
-            let root_menus = []
-            // 得到半选的父节点数据, 保存起来
-            this.$refs.menu.getCheckedNodes().forEach(function(data, index) {
-                if (data.children) {
-                    root_menus.push(data.id)
+            // 得到半选的父节点保存起来
+            this.$refs.menu.getHalfCheckedNodes().forEach(function(data, index) {
+                if (data.children) { 
+                    params.menus.push(data.id)
                 }
             })
             // 得到已选中的key值
             this.$refs.menu.getCheckedKeys().forEach(function(data, index) {
-                if (root_menus.filter(d => d === data).length === 0) { // 不包含父节点
-                    params.menus.push(data)
-                }
+                params.menus.push(data)
             })
             let result = await api.role_menu_edit(params)
             this.menuLoading = false
@@ -262,7 +266,7 @@ export default {
             this.permissionLoading = true
             const params = { id: this.currentRoleId, permissions: [] }
             let root_permissions = []
-            // 得到半选的父节点数据, 保存起来
+            // 将所有父节点保存起来
             this.$refs.permission.getCheckedNodes().forEach(function(data, index) {
                 if (data.children) {
                     root_permissions.push(data.id)

@@ -144,7 +144,7 @@ service.interceptors.response.use(
 export default async function request(option) {
     // 权限检查
     if (option.api.auth) {
-        if (!permissionCheck(option.api.url)) {
+        if (!permissionCheck([option.api.url])) {
             Message({
                 message: '抱歉，你没有操作的权限',
                 type: 'error',

@@ -17,13 +17,13 @@
         </el-form-item>
 
         <el-form-item>
-            <el-button type="primary" @click="handleFormSubmit" icon="el-icon-search">
+            <el-button v-permission="['role/list']" type="primary" @click="handleFormSubmit" icon="el-icon-search">
                 查询
             </el-button>
         </el-form-item>
 
         <el-form-item>
-            <el-button icon="el-icon-plus" type='success' @click="showDialog">
+            <el-button v-permission="['role/add']" icon="el-icon-plus" type='success' @click="showDialog">
                 新增
             </el-button>
         </el-form-item>

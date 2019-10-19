@@ -209,9 +209,9 @@ export default {
         getLevel() {
             // 计算用户级别
             if (this.info) {
-                let level = -999
+                let level = 999
                 this.info.roles.forEach(r => {
-                    if (r.level > level) {
+                    if (r.level < level) {
                         level = r.level
                     }
                 })

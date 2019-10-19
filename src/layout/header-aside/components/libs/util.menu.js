@@ -12,6 +12,7 @@ export function elMenuItem(createElement, menu, active) {
     //         : []),
     //     createElement('span', { slot: 'title' }, menu.title || '未命名菜单')
     // ])
+    if (!menu.show) { return null }
     return createElement('el-menu-item', { props: { index: menu.path }}, [
         ...(menu.icon
             ? [createElement('i', { attrs: { class: `fa fa-${menu.icon}` } })]
@@ -28,7 +29,8 @@ export function elMenuItem(createElement, menu, active) {
 
 // 创建 el-submenu
 export function elSubmenu(createElement, menu, active) {
-    return createElement('el-submenu', { props: { index: menu.path } }, [
+    if (!menu.show) { return null }
+    return createElement('el-submenu', { props: { index: menu.path }}, [
         ...(menu.icon
             ? [
                   createElement('i', {

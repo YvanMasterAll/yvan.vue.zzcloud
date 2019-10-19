@@ -48,7 +48,7 @@ router.beforeEach(async (to, from, next) => {
             // 验证菜单权限
             let route = to.matched.filter(r => r.path === to.fullPath)
             if (route.length === 1) {
-                if (await menuCheck(route.path, route[0].meta.perm)) {
+                if (await menuCheck(route[0].path, route[0].meta.perm)) {
                     next()
                 } else {
                     next({
@@ -104,43 +104,56 @@ const menuCheck = async function(menu, authorities) {
     // 获取用户的权限
     let user = await store.dispatch('d2admin/user/get')
     if (!user) { return false }
-    if (isAdmin(user.roles, user.perms)) { // 超级管理员
-        return true
-    }
+    let isadmin = isAdmin(user.roles, user.perms) // 超级管理员
     let menus = user.menus
-    if (menus.filter(d => d.path === menu).length > 0) {
-        return true
+    
+    if (menu instanceof Array) { // 判断菜单显示和隐藏
+        function query(m) {
+            if (isadmin || m.public) { // 管理员或者是公开菜单始终可见
+                m.show = true 
+            } else { 
+                m.show = menus.filter(d => '/' + d.path === m.path).length > 0
+            }
+            if (m.children) { m.children.forEach(d => query(d)) }
+        }
+        menu.forEach(m => query(m))
+        
+        return
     }
 
-    return false
+    // 检查权限
+    if (isadmin) { return true }
+    return menus.filter(d => '/' + d.path === menu).length > 0
 }
 
 // 检查资源权限
-const permissionCheck = async function(url) {
-    let user = await store.dispatch('d2admin/user/get')
+const permissionCheck = function(urls) {
+    // let user = await store.dispatch('d2admin/user/get')
+    let user = store.state.d2admin.user.info // 同步获取用户信息, 因为template中无法异步操作
     if (!user) { return false }
     let roles = user.roles
     let perms = user.perms
+    if (!roles || !perms) { return false }
     if (isAdmin(roles, perms)) { // 超级管理员
         return true
     }
-    let path = url.replace('/api/', '')
-    let pass = false
-    perms.forEach(d => {
-        let _path = _.lowerCase(d.path)
-        if (_path === path || path.startWith(_path)) {
-            pass = true
-        }
+    urls = urls.map(u => u.replace('/api/', ''))
+    let paths = perms.map(p => p.path)
+    let cool = urls.some(u => { // 乐观判断
+        return paths.includes(u)
+        // return paths.includes(u) || paths.filter(p => u.startWith(p)).length > 0
     })
-    if (pass) {
-        return true
-    }
-    
-    return false
+    // let cool = urls.every(u => { // 悲观判断
+    //     return paths.includes(u)
+    //     // return paths.includes(u) || paths.filter(p => u.startWith(p)).length > 0
+    // })
+
+    return cool
 }
 
 // 检查是否是管理员
 const isAdmin = function(roles, perms) {
+    if (!roles || !perms) { return false }
     return (roles.filter(d => d.id === 1).length > 0 && perms.filter(d => d.id === 1).length > 0)
 }
 
@@ -167,6 +180,7 @@ export {
     isAdmin,
     isAdminRole,
     permissionCheck,
+    menuCheck,
     isAdminPermission
 }
 export default router

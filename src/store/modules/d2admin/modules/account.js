@@ -2,6 +2,7 @@ import { Message, MessageBox } from 'element-ui'
 import util from '@/libs/util.js'
 import router from '@/router'
 import api from '@/api'
+import { menuHeader } from '@/menu'
 
 export default {
     namespaced: true,
@@ -13,7 +14,7 @@ export default {
          * @param {Object} payload password {String} 密码
          * @param {Object} payload route {Object} 登录成功后定向的路由对象 任何 vue-router 支持的格式
          */
-        async login({ dispatch }, { username = '', password = '' } = {}) {
+        async login({ commit, dispatch }, { username = '', password = '' } = {}) {
             let result = await api.signin({name: username, password})
             if (result.valid) {
                 await dispatch(
@@ -21,6 +22,8 @@ export default {
                     result.data,
                     { root: true }
                 )
+                // 更新顶栏菜单
+                await commit('d2admin/menu/headerSet', menuHeader, { root: true })
                 // 用户登录后从持久化数据加载一系列的设置
                 await dispatch('load')
             }

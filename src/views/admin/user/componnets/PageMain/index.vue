@@ -40,10 +40,11 @@
                         </template>
                     </el-table-column>
                     
-                    <el-table-column label="操作" width="125" align="center" fixed="right">
+                    <el-table-column v-if="permissionCheck(['user/edit', 'user/del'])" label="操作" width="125" align="center" fixed="right">
                         <template slot-scope="scope">
-                            <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" style='margin-right: 4px;'/>
+                            <el-button v-permission="['user/edit']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" style='margin-right: 4px;'/>
                             <el-popover
+                                v-permission="['user/del']"
                                 :ref="scope.row.id"
                                 placement="top"
                                 width="180">
@@ -64,6 +65,7 @@
 
 <script>
 import util from '@/libs/util'
+import { permissionCheck } from '@/router'
 import editDialog from '../EditDialog'
 import api from '@/api'
 export default {
@@ -120,6 +122,7 @@ export default {
         }
     },
     methods: {
+        permissionCheck,
         toDateString: util.toDateString,
         handleNodeClick(data) {
             this.$emit('dept-select', data.id)
@@ -152,6 +155,7 @@ export default {
             _this.selectDept(data.Dept)
             _this.jobId = data.Job.id 
             _this.roleIds = data.roles.map(r => r.id)
+            _this.getLevel()
             _this.dialog = true
         },
         findDepts() { // 搜索部门字典
