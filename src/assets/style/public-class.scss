@@ -81,6 +81,10 @@ $sizes: (0, 5, 10, 15, 20);
     height: 36px !important;
 }
 
+.d2-multiple-page-control .el-tabs__nav {
+    height: 36px;
+}
+
 .d2-header-right {
     height: 54px !important;
 }
@@ -90,9 +94,12 @@ $sizes: (0, 5, 10, 15, 20);
 }
 
 .d2-theme-container-main-header {
-    height: 37px !important;
+    height: 36px !important;
 }
 
 .d2-multiple-page-control-group .el-button-group .el-button {
-    height: 37px;
+    height: 36px;
 }
+
+// normalize style
+div:focus { outline: none; }

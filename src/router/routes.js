@@ -66,7 +66,18 @@ const frameIn = [
                     title: '没有权限',
                 },
                 component: _import('system/error/401')
-            }
+            },
+            // 用户中心
+            {
+                path: 'profile',
+                name: 'profile',
+                meta: {
+                    ...meta,
+                    auth: false,
+                    title: '用户中心'
+                },
+                component: _import('system/profile')
+            },
         ]
     },
     admin,

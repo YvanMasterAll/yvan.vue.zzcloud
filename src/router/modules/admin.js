@@ -31,6 +31,24 @@ export default {
                 title: '角色管理',
                 cache: true
             }
+        }, {
+            path: 'dept',
+            name: `${pre}dept`,
+            component: _import('admin/dept'),
+            meta: {
+                ...meta,
+                title: '部门管理',
+                cache: true
+            }
+        }, {
+            path: 'job',
+            name: `${pre}job`,
+            component: _import('admin/job'),
+            meta: {
+                ...meta,
+                title: '岗位管理',
+                cache: true
+            }
         }
     ])('admin-')
 }

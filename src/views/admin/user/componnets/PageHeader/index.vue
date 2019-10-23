@@ -19,6 +19,7 @@
                         v-model="form.name"
                         placeholder="输入要查询的用户名"
                         style="width: 200px;"
+                        @keyup.enter.native="handleFormSubmit"
                     />
                 </el-form-item>
 

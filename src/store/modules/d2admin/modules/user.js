@@ -29,6 +29,30 @@ export default {
                 resolve()
             })
         },
+        /**
+         * @description 更新用户数据
+         * @param {Object} context
+         * @param {*} info info
+         */
+        update({ state, dispatch }, info) {
+            return new Promise(async resolve => {
+                info = {...state.info, ...info}
+                state.info = info
+                // 持久化
+                await dispatch(
+                    'd2admin/db/set',
+                    {
+                        dbName: 'sys',
+                        path: 'user.info',
+                        value: info,
+                        user: true
+                    },
+                    { root: true }
+                )
+                // end
+                resolve()
+            })
+        },
         get: async function({ state, dispatch }) {
             return await dispatch(
                 'd2admin/db/get',

@@ -167,6 +167,11 @@ const isAdminPermission = function(id) {
     return id === 1
 }
 
+// 检查是否是根部门
+const isRootDept = function(dept) {
+    return dept.pid === 0
+}
+
 router.afterEach(to => {
     // 进度条
     NProgress.done()
@@ -181,6 +186,7 @@ export {
     isAdminRole,
     permissionCheck,
     menuCheck,
-    isAdminPermission
+    isAdminPermission,
+    isRootDept
 }
 export default router

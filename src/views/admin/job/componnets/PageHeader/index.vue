@@ -10,21 +10,32 @@
         <el-form-item>
             <el-input
                 v-model="form.name"
-                placeholder="输入要查询的角色名称"
+                placeholder="输入要查询的岗位名称"
                 style="width: 200px;"
                 size="mini"
                 @keyup.enter.native="handleFormSubmit"
             />
         </el-form-item>
 
+        <el-form-item label="状态" prop="state">
+            <el-select
+                v-model="form.state"
+                placeholder="状态选择"
+                style="width: 100px;"
+                clearable
+                >
+                <el-option v-for='item in stateOptions' :key='item.key' :label='item.display_name' :value='item.key' />
+            </el-select>
+        </el-form-item>
+
         <el-form-item>
-            <el-button v-permission="['role/list']" type="primary" @click="handleFormSubmit" icon="el-icon-search">
+            <el-button v-permission="['job/list']" type="primary" @click="handleFormSubmit" icon="el-icon-search">
                 查询
             </el-button>
         </el-form-item>
 
         <el-form-item>
-            <el-button v-permission="['role/add']" icon="el-icon-plus" type='success' @click="showDialog">
+            <el-button v-permission="['job/add']" icon="el-icon-plus" type='success' @click="showDialog">
                 新增
             </el-button>
         </el-form-item>
@@ -36,13 +47,12 @@
 export default {
     data() {
         return {
-            form: {
-                name: null
-            },
-            rules: {
-                // type: [ { required: true, message: '请选择一个状态', trigger: 'change' } ],
-                // user: [ { message: '请输入用户', trigger: 'change' } ]
-            }
+            form: { name: null, state: null },
+            rules: { },
+            stateOptions: [
+                { key: this.$enums.state.on, display_name: '正常' },
+                { key: this.$enums.state.off, display_name: '停用' }
+            ]
         }
     },
     methods: {

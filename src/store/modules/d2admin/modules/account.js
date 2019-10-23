@@ -30,6 +30,21 @@ export default {
             return result
         },
         /**
+         * @description 用户信息
+         * @param {Object} context
+         */
+        async getProfile({ commit, dispatch }) {
+            let result = await api.user_profile()
+            if (result.valid) {
+                await dispatch(
+                    'd2admin/user/update',
+                    result.data,
+                    { root: true }
+                )
+            }
+            return result
+        },
+        /**
          * @description 注销用户并返回登录页面
          * @param {Object} context
          * @param {Object} payload confirm {Boolean} 是否需要确认
