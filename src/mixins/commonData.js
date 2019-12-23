@@ -52,10 +52,11 @@ export default {
                 console.log(this.permissions)
             }
         },
-        getDeptsDict() { // 生成部门字典
+        // 生成部门字典，按照字符构建一颗字典树，效果大概是：[{name: '中', children: [{name: '正', children: [{name: '智', children: [{name: '控'}]}]}]
+        getDeptsDict() { 
             let _depts = []
-            function flatDepts(s) { // 扁平化数据
-                s.forEach(d => {
+            function flatDepts(node) { // 扁平化数据
+                node.forEach(d => {
                     _depts.push({ id: d.id, name: d.name, pid: d.pid, createTime: d.createTime, label: d.label })
                     if (d.children) { flatDepts(d.children) }
                 })
@@ -63,18 +64,19 @@ export default {
             flatDepts(this.depts)
             
             let _deptsDict = []
-            _depts.forEach(d => {
-                let tokens = d.name.split('') // 字符串数组
+            _depts.forEach(node => {
+                let tokens = node.name.split('') // 字符数组
                 let dict = _deptsDict
-                tokens.forEach(t => { dict = plant(dict, t, d) })
+                // 根据字符顺序找到要操作的节点，并将当前节点合并到该节点上
+                tokens.forEach(t => { dict = merge(dict, t, node) })
             })
-            function plant(dict, token, source) {
-                let _dict = dict.filter(d => d.name === token)[0]
-                if (_dict) {
-                    _dict.data.push(source)
-                    return _dict.children
+            function merge(dict, token, source) {
+                let node = dict.filter(d => d.name === token)[0]
+                if (node) {
+                    node.data.push(source)
+                    return node.children
                 } else {
-                    let node = { name: token, data: [source], children: [] }
+                    node = { name: token, data: [source], children: [] }
                     dict.push(node)
                     return node.children
                 }

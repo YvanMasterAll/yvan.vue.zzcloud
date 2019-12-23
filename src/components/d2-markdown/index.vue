@@ -13,7 +13,7 @@ import highlight from 'highlight.js'
 import '../highlight-styles/github-gist.css'
 import bandupan from './plugin/baidupan'
 import 'github-markdown-css'
-import { ComponentsMarkdownBase } from '@api/components.markdown'
+import { ComponentsMarkdownBase } from '@/api/components.markdown'
 export default {
     name: 'd2-markdown',
     props: {

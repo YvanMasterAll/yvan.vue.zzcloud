@@ -14,6 +14,7 @@ import pluginLog from '@/plugin/log'
 import pluginOpen from '@/plugin/open'
 import pluginPermission from '@/plugin/permission'
 import enums from '@/libs/util.enums'
+import errors from '@/libs/util.errors'
 import setting from '@/setting'
 
 // 全局变量
@@ -28,6 +29,8 @@ export default {
         Vue.prototype.$env = process.env.NODE_ENV
         // 常用枚举
         Vue.prototype.$enums = enums
+        // 错误异常
+        Vue.prototype.$errors = errors
         // 当前的 baseUrl
         Vue.prototype.$baseUrl = process.env.BASE_URL
         // 当前版本
@@ -41,21 +44,5 @@ export default {
         Vue.use(pluginLog)
         Vue.use(pluginOpen)
         Vue.use(pluginPermission)
-
-        // 测试方法
-        test()
     }
-}
-
-import request from '@/plugin/axios'
-async function test() {
-    console.log('hello, this is a testing method')
-    // 测试接口
-    // 测试资源权限
-    // let result = await request({
-    //     method: 'post', 
-    //     url: '/api/book/add',
-    //     params: {name: 'live here'}
-    // })
-    // console.log(result)
 }

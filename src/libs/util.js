@@ -1,13 +1,10 @@
 import cookies from './util.cookies'
 import db from './util.db'
 import log from './util.log'
+import storage from './util.storage'
 var moment = require('moment')
 
-const util = {
-    cookies,
-    db,
-    log
-}
+const util = { cookies, db, log, storage }
 
 /**
  * @description 更新标题

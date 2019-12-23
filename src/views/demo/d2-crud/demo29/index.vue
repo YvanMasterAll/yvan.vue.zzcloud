@@ -27,7 +27,7 @@
 <script>
 import doc from './doc.md'
 import code from './code.js'
-import { BusinessTable1List } from '@api/demo.business.table.1'
+import { BusinessTable1List } from '@/api/demo.business.table.1'
 
 export default {
     data() {

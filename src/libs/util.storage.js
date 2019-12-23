@@ -1,6 +1,8 @@
 /// 本地存储
 
-export const setStore = (name, content) => {
+const storage = {} 
+
+storage.setStore = (name, content) => {
     if (!name) return
     if (typeof content !== 'string') {
         content = JSON.stringify(content)
@@ -8,10 +10,12 @@ export const setStore = (name, content) => {
     window.localStorage.setItem(name, content)
 }
 
-export const getStore = name => {
+storage.getStore = name => {
     if (!name) return
     return window.localStorage.getItem(name)
 }
+
+export default storage
 
 /// 本地环境
 

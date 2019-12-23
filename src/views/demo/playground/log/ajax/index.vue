@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getInvalidUrl } from '@api/demo.playground.log.ajax.js'
+import { getInvalidUrl } from '@/api/demo.playground.log.ajax'
 export default {
     methods: {
         handleClick() {

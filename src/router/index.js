@@ -40,6 +40,7 @@ router.beforeEach(async (to, from, next) => {
         return next()
     }
     
+    // 首先要验证用户是否登录或者登录已过期
     if (await authCheck()) {
         // 验证当前路由所有的匹配中是否需要有登录验证的
         if (to.matched.some(r => r.meta.auth)) {
@@ -56,7 +57,7 @@ router.beforeEach(async (to, from, next) => {
                     })
                 }
             } else {
-                // 不需要身份校验 直接通过
+                // 不需要身份校验，直接通过
                 next()
             }
             NProgress.done()
@@ -78,9 +79,11 @@ router.beforeEach(async (to, from, next) => {
 })
 
 const authCheck = async function() {
+    // 取到用户信息
     let user = await store.dispatch('d2admin/user/get')
     let expire = user.exp
     if (!expire) { return false }
+    // 验证过期时间
     let now = Math.ceil((new Date().getTime())/1000)
     if (now > expire) {
         return false
@@ -107,7 +110,8 @@ const menuCheck = async function(menu, authorities) {
     let isadmin = isAdmin(user.roles, user.perms) // 超级管理员
     let menus = user.menus
     
-    if (menu instanceof Array) { // 判断菜单显示和隐藏
+    // 检查菜单权限，没有权限访问的菜单隐藏
+    if (menu instanceof Array) { 
         function query(m) {
             if (isadmin || m.public) { // 管理员或者是公开菜单始终可见
                 m.show = true 
@@ -137,6 +141,7 @@ const permissionCheck = function(urls) {
     if (isAdmin(roles, perms)) { // 超级管理员
         return true
     }
+    // 检查资源权限，其实就是判断权限中是否能匹配访问路由
     urls = urls.map(u => u.replace('/api/', ''))
     let paths = perms.map(p => p.path)
     let cool = urls.some(u => { // 乐观判断

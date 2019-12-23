@@ -1,4 +1,4 @@
-import { detail } from '@api/demo.business.issues.142'
+import { detail } from '@/api/demo.business.issues.142'
 
 export default {
     props: {

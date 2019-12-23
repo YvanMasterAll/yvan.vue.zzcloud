@@ -1,6 +1,6 @@
 import { permissionCheck } from '@/router'
 
-// Vue组件, 如果用户没有足够的权限, 控件将被移除
+// Vue组件, 如果用户没有足够的权限, 控件将被移除，就是不显示
 // v-permission="['user/list']"
 
 export default {

@@ -3,7 +3,6 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 import util from '@/libs/util'
 import * as urls from '@/dataSourceConfig'
-import { RequestError, AuthFailed } from '@/libs/util.errors'
 import Vue from 'vue'
 import { permissionCheck } from '@/router'
 
@@ -30,11 +29,11 @@ function errorLog(error) {
         console.log(error)
     }
     // 显示提示
-    Message({
-        message: error.message,
-        type: 'error',
-        duration: 5 * 1000
-    })
+    // Message({
+    //     message: error.message,
+    //     type: 'error',
+    //     duration: 5 * 1000
+    // })
 }
 
 // 创建一个 axios 实例
@@ -111,14 +110,15 @@ service.interceptors.response.use(
                 default: break
             }
         } else {
-            let _error = new RequestError()
+            let _error = new Vue.prototype.$errors.RequestError()
             return {
                 code: _error.code,
                 msg: _error.msg,
                 valid: false
             }
         }
-        // errorLog(error)
+        // 记录错误信息并输出到控制台
+        errorLog(error)
         // return Promise.reject(error)
         return {
             code: error.response.status,

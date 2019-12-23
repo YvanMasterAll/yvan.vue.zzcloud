@@ -1,13 +1,15 @@
 
-// 枚举常量
+/// 枚举常量
 
 const enums = {
-    state: {            // 数据状态
+    // 数据状态
+    state: {            
         on: 'on',
         off: 'off',
         del: 'del'
     },
-    scope: {            // 权限范围
+    // 权限范围
+    scope: {            
         all: 'all',     // 全部
         diy: 'diy',     // 自定义
         same: 'same'    // 本级

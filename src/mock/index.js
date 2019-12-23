@@ -8,3 +8,5 @@ const options = req(require.context('./api/', true, /\.js$/))
 options.forEach(option => {
     d2Mock.load(option)
 })
+
+console.log("mock server is running...")

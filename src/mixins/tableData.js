@@ -34,7 +34,7 @@ export default {
             this.page.current = 1
             this.handleSubmit()
         },
-        beforeSubmit() { },
+        beforeSubmit() {},
         handlePaginationChange(val) {
             this.page = val
             this.handleSubmit()
