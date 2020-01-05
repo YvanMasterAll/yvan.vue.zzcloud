@@ -16,6 +16,7 @@ import pluginPermission from '@/plugin/permission'
 import enums from '@/libs/util.enums'
 import errors from '@/libs/util.errors'
 import setting from '@/setting'
+import echarts from "echarts"
 
 // 全局变量
 global.setting = setting
@@ -39,6 +40,8 @@ export default {
         Vue.prototype.$buildTime = process.env.VUE_APP_BUILD_TIME
         // Element
         Vue.use(ElementUI)
+        // Echarts
+        Vue.prototype.$echarts = echarts
         // 插件
         Vue.use(pluginError)
         Vue.use(pluginLog)

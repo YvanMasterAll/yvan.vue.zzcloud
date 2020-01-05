@@ -7,6 +7,7 @@ import components from './modules/components'
 import element from './modules/element'
 import business from './modules/business'
 import admin from './modules/admin'
+import ticket from './modules/ticket'
 
 import layoutHeaderAside from '@/layout/header-aside'
 
@@ -29,7 +30,6 @@ const frameIn = [
                 name: 'index',
                 meta: {
                     ...meta,
-                    auth: false
                 },
                 component: _import('system/index')
             },
@@ -73,7 +73,6 @@ const frameIn = [
                 name: 'profile',
                 meta: {
                     ...meta,
-                    auth: false,
                     title: '用户中心'
                 },
                 component: _import('system/profile')
@@ -81,6 +80,7 @@ const frameIn = [
         ]
     },
     admin,
+    ticket,
     playground,
     frame,
     d2Crud,

@@ -58,14 +58,44 @@ class API {
     /// 部门删除
     async dept_del(data) { return await request({ api: urls.dept_del, params: data }) }
 
-     /// 岗位列表
-     async job_list(data) { return await request({ api: urls.job_list, params: data }) }
-     /// 岗位新增
-     async job_add(data) { return await request({ api: urls.job_add, params: data }) }
-     /// 岗位编辑
-     async job_edit(data) { return await request({ api: urls.job_edit, params: data }) }
-     /// 岗位删除
-     async job_del(data) { return await request({ api: urls.job_del, params: data }) }
+    /// 岗位列表
+    async job_list(data) { return await request({ api: urls.job_list, params: data }) }
+    /// 岗位新增
+    async job_add(data) { return await request({ api: urls.job_add, params: data }) }
+    /// 岗位编辑
+    async job_edit(data) { return await request({ api: urls.job_edit, params: data }) }
+    /// 岗位删除
+    async job_del(data) { return await request({ api: urls.job_del, params: data }) }
+
+    /// 工单文件上传
+    async ticket_upload(data) {
+         return await request({ api: urls.ticket_upload, data: data, headers: {'Content-Type': 'multipart/form-data'} })
+    }
+    /// 工单新增
+    async ticket_add(data) { return await request({ api: urls.ticket_add, params: data }) }
+    /// 流程信息
+    async processes(data) { return await request({ api: urls.processes, params: data }) }
+    async process_list(data) { return await request({ api: urls.process_list, params: data }) }
+    /// 工单信息
+    async ticket_info(data) { return await request({ api: urls.ticket_info, params: data }) }
+    /// 新增流转
+    async transition_add(data) { return await request({ api: urls.transition_add, params: data }) }
+    /// 工单活动
+    async activity_list(data) { return await request({ api: urls.activity_list, params: data }) }
+    /// 工单列表
+    async ticket_list(data) { return await request({ api: urls.ticket_list, params: data }) }
+    /// 发布的工单列表
+    async ticket_commit_list(data) { return await request({ api: urls.ticket_commit_list, params: data }) }
+    /// 待办的工单列表
+    async ticket_hold_list(data) { return await request({ api: urls.ticket_hold_list, params: data }) }
+    /// 待处理的工单列表
+    async ticket_stay_list(data) { return await request({ api: urls.ticket_stay_list, params: data }) }
+    /// 工单执行人
+    async ticket_executors(data) { return await request({ api: urls.ticket_executors, params: data }) }
+    /// 处理的工单列表
+    async ticket_handle_list(data) { return await request({ api: urls.ticket_handle_list, params: data }) }
+    /// 工单面板数据
+    async ticket_panel(data) { return await request({ api: urls.ticket_panel, params: data }) }
 }
 
 export default new API()

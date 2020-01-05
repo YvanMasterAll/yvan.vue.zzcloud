@@ -39,5 +39,44 @@ util.toDateString = function(date) {
     }
     return moment().format(format)
 }
+util.toDate = function(dateString) {
+    let format = "YYYY-MM-DD HH:mm:ss"
+
+    return moment(dateString, format)
+}
+
+/// 日期组件选项
+util.pickerOptions = {
+    shortcuts: [{
+        text: '最近一周',
+        onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', [start, end]);
+        }
+    }, {
+        text: '最近一个月',
+        onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            picker.$emit('pick', [start, end]);
+        }
+    }, {
+        text: '最近三个月',
+        onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            picker.$emit('pick', [start, end]);
+        }
+    }]
+},
+
+/// 字符串扩展
+String.prototype.fullUrl = function() {  
+    return process.env.VUE_APP_API + this
+}
 
 export default util

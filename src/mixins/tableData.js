@@ -8,7 +8,7 @@ export default {
                 total: 0
             },
             api: null,
-            params: null
+            params: {}
         }
     },
     methods: {

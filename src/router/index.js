@@ -42,11 +42,8 @@ router.beforeEach(async (to, from, next) => {
     
     // 首先要验证用户是否登录或者登录已过期
     if (await authCheck()) {
-        // 验证当前路由所有的匹配中是否需要有登录验证的
+        // 验证当前匹配的路由权限
         if (to.matched.some(r => r.meta.auth)) {
-            // 这里暂时将cookie里是否存有token作为验证是否登录的条件
-            // 请根据自身业务需要修改
-            // 验证菜单权限
             let route = to.matched.filter(r => r.path === to.fullPath)
             if (route.length === 1) {
                 if (await menuCheck(route[0].path, route[0].meta.perm)) {

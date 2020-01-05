@@ -67,6 +67,7 @@ $sizes: (0, 5, 10, 15, 20);
 .#{$prefix}-pl { padding-left: 20px !important; }
 
 // 样式微调
+
 .logo-group {
     box-shadow: rgba(0, 0, 0, 0.1) 1px 3px 9px -3px;
 }
@@ -98,8 +99,32 @@ $sizes: (0, 5, 10, 15, 20);
 }
 
 .d2-multiple-page-control-group .el-button-group .el-button {
-    height: 36px;
+    height: 35px;
+}
+
+.d2-multiple-page-control-group .el-button-group .el-button > span {
+    position: relative;
+    bottom: 1px;
+}
+
+.el-card.d2-card-mini {
+    .el-card__header {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    .el-card__body {
+        padding: 12px 20px;
+    }
+}
+
+.el-upload {
+    display: block !important;
+}
+
+.el-form-item__label {
+    font-size: 13px !important;
 }
 
 // normalize style
+
 div:focus { outline: none; }

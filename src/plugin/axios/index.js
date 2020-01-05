@@ -160,7 +160,8 @@ export default async function request(option) {
             method: option.api.method,
             url: option.api.url,
             params: option.params,
-            data: option.data
+            data: option.data,
+            headers: option.headers
         }
         // 显示菊花
         let loading = Vue.prototype.$loading({fullscreen: true})

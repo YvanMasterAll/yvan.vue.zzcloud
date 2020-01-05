@@ -78,7 +78,7 @@ export default {
     data() {
         return {
             headers: { 'Authorization': util.cookies.get('token') },
-            uploadApi: process.env.VUE_APP_API + urls.user_update_avatar.url,
+            uploadApi: urls.user_update_avatar.url.fullUrl(),
             profile: { }
         }
     },

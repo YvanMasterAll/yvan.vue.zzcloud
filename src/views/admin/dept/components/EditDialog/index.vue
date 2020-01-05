@@ -11,7 +11,7 @@
             </el-form-item>
 
             <el-form-item v-if="!isRootDept(form)" style="margin-bottom: 0px;" label="上级部门" prop="pid">
-                <treeselect v-model="form.pid" :options="depts" style="width: 370px;" placeholder="选择上级类目" />
+                <treeselect v-model="form.pid" :options="depts" style="width: 370px;" placeholder="选择上级部门" />
             </el-form-item>
 
         </el-form>

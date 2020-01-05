@@ -7,7 +7,9 @@ export default {
             jobs: [],
             roles: [],
             menus: [],
-            permissions: []
+            permissions: [],
+            processes: [],
+            executors: []
         }
     },
     methods: {
@@ -83,6 +85,24 @@ export default {
             }
 
             this.deptsDict = _deptsDict
+        },
+        // 获取工单流程
+        async getProcesses() {
+            let result = await api.processes()
+            if (result.valid) {
+                this.processes = result.data
+                console.log('工单流程')
+                console.log(this.processes)
+            }
+        },
+        // 获取工单执行人
+        async getExecutors() {
+            let result = await api.ticket_executors()
+            if (result.valid) {
+                this.executors = result.data
+                console.log('工单流程')
+                console.log(this.executors)
+            }
         },
     }
 }

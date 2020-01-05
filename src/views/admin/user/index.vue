@@ -22,9 +22,9 @@ export default {
     name: 'admin-user',
     mixins: [commonData, tableData], 
     components: {
-        DemoPageHeader: () => import('./componnets/PageHeader'),
-        DemoPageMain: () => import('./componnets/PageMain'),
-        DemoPageFooter: () => import('./componnets/PageFooter')
+        DemoPageHeader: () => import('./components/PageHeader'),
+        DemoPageMain: () => import('./components/PageMain'),
+        DemoPageFooter: () => import('./components/PageFooter')
     },
     data() {
         return {

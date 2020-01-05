@@ -58,3 +58,20 @@ export const job_edit = { url: '/api/job/edit', method: 'post', auth }
 /// 图片上传
 
 export const upload_avatar = { url: '/api/upload/avatar', method: 'post', auth: false }
+
+/// 工单模块
+
+export const processes = { url: '/api/wk_common/processes', method: 'get', auth: false }
+export const process_list = { url: '/api/wk_common/process_list', method: 'get', auth: false }
+export const ticket_upload = { url: '/api/ticket/upload', method: 'post', auth: false }
+export const ticket_add = { url: '/api/ticket/add', method: 'post', auth: false }
+export const ticket_info = { url: '/api/ticket/info', method: 'get', auth: false }
+export const transition_add = { url: '/api/ticket/transition_add', method: 'post', auth: false }
+export const activity_list = { url: '/api/ticket/activity_list', method: 'get', auth: false }
+export const ticket_list = { url: '/api/ticket/list', method: 'get', auth }
+export const ticket_commit_list = { url: '/api/ticket/commit_list', method: 'get', auth: false }
+export const ticket_hold_list = { url: '/api/ticket/hold_list', method: 'get', auth: false }
+export const ticket_stay_list = { url: '/api/ticket/stay_list', method: 'get', auth: false }
+export const ticket_executors = { url: '/api/ticket/ticket_executors', method: 'get', auth: false }
+export const ticket_handle_list = { url: '/api/ticket/handle_list', method: 'get', auth: false }
+export const ticket_panel = { url: '/api/ticket/panel', method: 'get', auth: false }

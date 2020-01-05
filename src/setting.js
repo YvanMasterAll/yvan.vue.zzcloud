@@ -1,3 +1,5 @@
+// TODO: 更换d2-admin信息 > 首页图标 + logo + favicon
+
 export default {
     // 快捷键
     // 支持快捷键 例如 ctrl+shift+s

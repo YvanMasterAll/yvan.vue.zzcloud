@@ -18,6 +18,10 @@ export default {
         value: {
             type: String,
             default: ''
+        },
+        serverUrl: {
+            type: String,
+            default: ''
         }
     },
     data() {
@@ -39,6 +43,12 @@ export default {
         // 对外提供 v-model
         currentValue(val) {
             this.$emit('input', val)
+        },
+        serverUrl: {
+            handler(val) {
+                this.config.serverUrl = this.serverUrl
+            },
+            immediate: true
         }
     },
     methods: {

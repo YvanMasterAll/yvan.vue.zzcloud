@@ -15,8 +15,8 @@ export default {
     name: 'admin-dept',
     mixins: [commonData, tableData], 
     components: {
-        DemoPageHeader: () => import('./componnets/PageHeader'),
-        DemoPageMain: () => import('./componnets/PageMain')
+        DemoPageHeader: () => import('./components/PageHeader'),
+        DemoPageMain: () => import('./components/PageMain')
     },
     data() {
         return {
