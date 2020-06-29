@@ -62,7 +62,7 @@ export const upload_avatar = { url: '/api/upload/avatar', method: 'post', auth: 
 /// 工单模块
 
 export const processes = { url: '/api/wk_common/processes', method: 'get', auth: false }
-export const process_list = { url: '/api/wk_common/process_list', method: 'get', auth: false }
+export const process_all = { url: '/api/wk_common/process_all', method: 'get', auth: false }
 export const ticket_upload = { url: '/api/ticket/upload', method: 'post', auth: false }
 export const ticket_add = { url: '/api/ticket/add', method: 'post', auth: false }
 export const ticket_info = { url: '/api/ticket/info', method: 'get', auth: false }
@@ -70,8 +70,24 @@ export const transition_add = { url: '/api/ticket/transition_add', method: 'post
 export const activity_list = { url: '/api/ticket/activity_list', method: 'get', auth: false }
 export const ticket_list = { url: '/api/ticket/list', method: 'get', auth }
 export const ticket_commit_list = { url: '/api/ticket/commit_list', method: 'get', auth: false }
-export const ticket_hold_list = { url: '/api/ticket/hold_list', method: 'get', auth: false }
-export const ticket_stay_list = { url: '/api/ticket/stay_list', method: 'get', auth: false }
+export const ticket_pending_list = { url: '/api/ticket/pending_list', method: 'get', auth: false }
+export const ticket_todo_list = { url: '/api/ticket/todo_list', method: 'get', auth: false }
 export const ticket_executors = { url: '/api/ticket/ticket_executors', method: 'get', auth: false }
 export const ticket_handle_list = { url: '/api/ticket/handle_list', method: 'get', auth: false }
 export const ticket_panel = { url: '/api/ticket/panel', method: 'get', auth: false }
+
+/// 表格模块
+export const sheet_add = { url: '/api/sheet/add', method: 'post', auth }
+export const sheet_edit = { url: '/api/sheet/edit', method: 'post', auth }
+export const sheet_upload = { url: '/api/sheet/upload', method: 'post', auth: false }
+export const sheet_list = { url: '/api/sheet/list', method: 'get', auth }
+export const sheet_del = { url: '/api/sheet/del', method: 'post', auth }
+export const sheet_fields = { url: '/api/sheet/fields', method: 'get', auth: false }
+export const sheet_templates = { url: '/api/sheet/templates', method: 'get', auth: false }
+export const sheet_field_add = { url: '/api/sheet/field_add', method: 'post', auth }
+export const sheet_field_edit = { url: '/api/sheet/field_edit', method: 'post', auth }
+export const sheet_field_list = { url: '/api/sheet/field_list', method: 'get', auth }
+export const sheet_field_del = { url: '/api/sheet/field_del', method: 'post', auth }
+export const sheet_tmpl_add = { url: '/api/sheet/tmpl_add', method: 'post', auth }
+export const sheet_tmpl_list = { url: '/api/sheet/tmpl_list', method: 'get', auth }
+export const sheet_tmpl_del = { url: '/api/sheet/tmpl_del', method: 'post', auth }

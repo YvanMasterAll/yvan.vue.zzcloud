@@ -4,7 +4,6 @@
             :data="tableData6"
             :span-method="arraySpanMethod"
             border
-            style="width: 100%;"
         >
             <el-table-column prop="id" label="ID" width="180">
             </el-table-column>

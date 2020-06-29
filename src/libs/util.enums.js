@@ -1,5 +1,5 @@
 
-/// 枚举常量
+// 枚举常量
 
 const enums = {
     // 数据状态
@@ -14,6 +14,40 @@ const enums = {
         diy: 'diy',     // 自定义
         same: 'same'    // 本级
     },
+}
+
+// 字典常量，以后会直接从后台获取
+enums.dict = {
+    dicts: [
+        {
+            id: 1,
+            name: 'state',
+            description: '通用状态',
+            Dict_Items: [
+                {id: 1, dict_id: 1, value: 'on', label: '激活', sort: 0},
+                {id: 2, dict_id: 1, value: 'off', label: '禁用', sort: 1},
+            ]
+        }
+    ],
+    // 获取字典数据项
+    getDictItems(name) {
+        let dict = this.dicts.filter(d => d.name === name)[0]
+        if (dict) {
+            return dict.Dict_Items
+        }
+        return []
+    },
+    // 获取数据项标签
+    getItemLabel(name, value) {
+        let dict = this.dicts.filter(d => d.name === name)[0]
+        if (dict) {
+            let item = dict.Dict_Items.filter(d => d.value === value)[0]
+            if (item) {
+                return item.label
+            }
+        }
+        return null
+    }
 }
 
 // 工作流模块
@@ -44,6 +78,7 @@ enums.wk = {
     executor_type: {
         none: 'none',           // 无执行人
         personal: 'personal',   // 个人
+        multi: 'multi',         // 多人
         dept: 'dept',           // 部门
         role: 'role',           // 角色
         script: 'script'        // 脚本

@@ -6,6 +6,8 @@ import App from './App'
 import d2Admin from '@/plugin/d2admin'
 // store
 import store from '@/store/index'
+// mock
+import '@/mock'
 
 // [ 可选组件 ]D2-Crud
 import D2Crud from '@d2-projects/d2-crud'
@@ -77,6 +79,9 @@ new Vue({
                     const _side = menuAside.filter(
                         menu => menu.path === matched[0].path
                     )
+                    console.log(111)
+                    console.log(menuAside)
+                    console.log(matched)
                     this.$store.commit(
                         'd2admin/menu/asideSet',
                         _side.length > 0 ? _side[0].children : []

@@ -1,0 +1,12 @@
+.vue-treeselect {
+    &.mini {
+        .vue-treeselect__control {
+            height: 28px;
+            .vue-treeselect__placeholder, .vue-treeselect__single-value {
+                line-height: 28px;
+                font-size: 12px;
+                color: #606266;
+            }
+        }
+    }
+}

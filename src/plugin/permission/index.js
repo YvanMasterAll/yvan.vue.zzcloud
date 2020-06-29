@@ -8,12 +8,13 @@ export default {
         Vue.directive('permission', {
             async inserted(el, binding, vnode) {
                 const { value } = binding
-              
-                if (value && value instanceof Array && value.length > 0) {
-                    // 检查权限
-                    let cool = permissionCheck(value)
-                  
-                    if (!cool) { el.parentNode && el.parentNode.removeChild(el) }
+                if (value && value instanceof Array) {
+                    if (value.length > 0) {
+                        // 检查权限
+                        let cool = permissionCheck(value)
+                    
+                        if (!cool) { el.parentNode && el.parentNode.removeChild(el) }
+                    }
                 } else {
                     throw new Error(`need roles! Like v-permission="['admin','user/list']"`)
                 }

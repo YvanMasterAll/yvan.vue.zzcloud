@@ -13,10 +13,12 @@ import pluginError from '@/plugin/error'
 import pluginLog from '@/plugin/log'
 import pluginOpen from '@/plugin/open'
 import pluginPermission from '@/plugin/permission'
+import pluginLodash from '@/plugin/lodash'
 import enums from '@/libs/util.enums'
 import errors from '@/libs/util.errors'
 import setting from '@/setting'
 import echarts from "echarts"
+import Viser from 'viser-vue'
 
 // 全局变量
 global.setting = setting
@@ -42,10 +44,13 @@ export default {
         Vue.use(ElementUI)
         // Echarts
         Vue.prototype.$echarts = echarts
+        // Antv
+        Vue.use(Viser)
         // 插件
         Vue.use(pluginError)
         Vue.use(pluginLog)
         Vue.use(pluginOpen)
+        Vue.use(pluginLodash)
         Vue.use(pluginPermission)
     }
 }

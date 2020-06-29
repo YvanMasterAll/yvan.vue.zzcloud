@@ -36,7 +36,7 @@ function errorLog(error) {
     // })
 }
 
-// 创建一个 axios 实例
+// 创建一个axios实例
 const service = axios.create({
     baseURL: process.env.VUE_APP_API,
     timeout: 10000, // 请求超时时间
@@ -169,7 +169,7 @@ export default async function request(option) {
             data => {
                 // 隐藏菊花
                 loading.close()
-                if (option.url === urls.signin.url && data.valid) {
+                if (option.api.url === urls.signin.url && data.valid) {
                     // 保存身份
                     // util.cookies.set('token', data.msg)
                     window.location.href = '/#/'

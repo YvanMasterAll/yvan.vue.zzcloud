@@ -16,21 +16,3 @@ storage.getStore = name => {
 }
 
 export default storage
-
-/// 本地环境
-
-// class Env {
-//     constructor() {
-
-//     }
-
-//     setUser(data) {
-//         setStore('user', data)
-//     }
-
-//     getUser() {
-//         return JSON.parse(getStore('user'))
-//     }
-// }
-
-// export const env = new Env()

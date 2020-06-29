@@ -4,7 +4,7 @@
             <slot />
         </div>
         <p class="d2-page-cover__title">中正智控管理平台 {{ $version }}</p>
-        <p class="d2-page-cover__sub-title">优雅的中后台集成方案，目前还在开发中ing</p>
+        <p class="d2-page-cover__sub-title">基于D2Admin，优雅的中后台集成方案</p>
         <p class="d2-page-cover__build-time">
             FINAL BUILD TIME {{ $buildTime }}
         </p>

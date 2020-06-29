@@ -11,14 +11,16 @@
             <!-- 顶栏 -->
             <div
                 class="d2-theme-header"
-                :style="{
-                    opacity: this.searchActive ? 0.5 : 1
-                }"
+                :style="{ opacity: this.searchActive ? 0.5 : 1 }"
                 flex-box="0"
                 flex
             >
-                <div
-                    class="logo-group"
+                <router-link
+                    to="/index"
+                    :class="{
+                        'logo-group': true,
+                        'logo-transition': asideTransition
+                    }"
                     :style="{
                         width: asideCollapse ? asideWidthCollapse : asideWidth
                     }"
@@ -27,20 +29,16 @@
                     <img
                         v-if="asideCollapse"
                         :src="
-                            `${$baseUrl}image/theme/${
-                                themeActiveSetting.name
-                            }/logo/icon-only.png`
+                            `${$baseUrl}image/theme/${themeActiveSetting.name}/logo/icon-only.png`
                         "
                     />
                     <img
                         v-else
                         :src="
-                            `${$baseUrl}image/theme/${
-                                themeActiveSetting.name
-                            }/logo/all.png`
+                            `${$baseUrl}image/theme/${themeActiveSetting.name}/logo/all.png`
                         "
                     />
-                </div>
+                </router-link>
                 <div
                     class="toggle-aside-btn"
                     @click="handleToggleAside"
@@ -68,7 +66,10 @@
                 <div
                     flex-box="0"
                     ref="aside"
-                    class="d2-theme-container-aside"
+                    :class="{
+                        'd2-theme-container-aside': true,
+                        'd2-theme-container-transition': asideTransition
+                    }"
                     :style="{
                         width: asideCollapse ? asideWidthCollapse : asideWidth,
                         opacity: this.searchActive ? 0.5 : 1
@@ -173,7 +174,8 @@ export default {
             keepAlive: state => state.page.keepAlive,
             grayActive: state => state.gray.active,
             transitionActive: state => state.transition.active,
-            asideCollapse: state => state.menu.asideCollapse
+            asideCollapse: state => state.menu.asideCollapse,
+            asideTransition: state => state.menu.asideTransition
         }),
         ...mapGetters('d2admin', {
             themeActiveSetting: 'theme/activeSetting'
@@ -182,15 +184,11 @@ export default {
          * @description 最外层容器的背景图片样式
          */
         styleLayoutMainGroup() {
-            return {
-                ...(this.themeActiveSetting.backgroundImage
-                    ? {
-                          backgroundImage: `url('${this.$baseUrl}${
-                              this.themeActiveSetting.backgroundImage
-                          }')`
-                      }
-                    : {})
-            }
+            return this.themeActiveSetting.backgroundImage
+                ? {
+                      backgroundImage: `url('${this.$baseUrl}${this.themeActiveSetting.backgroundImage}')`
+                  }
+                : {}
         }
     },
     methods: {

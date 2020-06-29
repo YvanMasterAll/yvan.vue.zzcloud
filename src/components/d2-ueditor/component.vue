@@ -1,0 +1,62 @@
+<template>
+    <vue-ueditor-wrap
+        ref="ueditor"
+        v-model="currentValue"
+        :config="config"
+        :destroy="true"
+        :init="init"
+    />
+</template>
+
+<script>
+// 参考 https://github.com/HaoChuan9421/vue-ueditor-wrap
+import config from './ueditor.config'
+import buttonD2admin from './button/d2admin'
+
+export default {
+    name: 'd2-ueditor',
+    props: {
+        value: {
+            type: String,
+            default: ''
+        },
+        serverUrl: {
+            type: String,
+            default: ''
+        }
+    },
+    data() {
+        return {
+            config,
+            currentValue: ''
+        }
+    },
+    watch: {
+        // 对外提供 v-model
+        value: {
+            handler(val) {
+                if (this.currentValue !== val) {
+                    this.currentValue = val
+                }
+            },
+            immediate: true
+        },
+        // 对外提供 v-model
+        currentValue(val) {
+            this.$emit('input', val)
+        },
+        serverUrl: {
+            handler(val) {
+                this.config.serverUrl = this.serverUrl
+            },
+            immediate: true
+        }
+    },
+    methods: {
+        init() {
+            // 注册一个测试按钮
+            this.$refs.ueditor.registerButton(buttonD2admin)
+        }
+    }
+}
+</script>

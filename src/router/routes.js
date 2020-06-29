@@ -7,7 +7,8 @@ import components from './modules/components'
 import element from './modules/element'
 import business from './modules/business'
 import admin from './modules/admin'
-import ticket from './modules/ticket'
+import oa from './modules/oa'
+import device from './modules/device'
 
 import layoutHeaderAside from '@/layout/header-aside'
 
@@ -80,7 +81,8 @@ const frameIn = [
         ]
     },
     admin,
-    ticket,
+    oa,
+    device,
     playground,
     frame,
     d2Crud,

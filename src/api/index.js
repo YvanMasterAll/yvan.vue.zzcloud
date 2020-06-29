@@ -75,7 +75,7 @@ class API {
     async ticket_add(data) { return await request({ api: urls.ticket_add, params: data }) }
     /// 流程信息
     async processes(data) { return await request({ api: urls.processes, params: data }) }
-    async process_list(data) { return await request({ api: urls.process_list, params: data }) }
+    async process_all(data) { return await request({ api: urls.process_all, params: data }) }
     /// 工单信息
     async ticket_info(data) { return await request({ api: urls.ticket_info, params: data }) }
     /// 新增流转
@@ -87,15 +87,46 @@ class API {
     /// 发布的工单列表
     async ticket_commit_list(data) { return await request({ api: urls.ticket_commit_list, params: data }) }
     /// 待办的工单列表
-    async ticket_hold_list(data) { return await request({ api: urls.ticket_hold_list, params: data }) }
+    async ticket_pending_list(data) { return await request({ api: urls.ticket_pending_list, params: data }) }
     /// 待处理的工单列表
-    async ticket_stay_list(data) { return await request({ api: urls.ticket_stay_list, params: data }) }
+    async ticket_todo_list(data) { return await request({ api: urls.ticket_todo_list, params: data }) }
     /// 工单执行人
     async ticket_executors(data) { return await request({ api: urls.ticket_executors, params: data }) }
     /// 处理的工单列表
     async ticket_handle_list(data) { return await request({ api: urls.ticket_handle_list, params: data }) }
     /// 工单面板数据
     async ticket_panel(data) { return await request({ api: urls.ticket_panel, params: data }) }
+
+    /// 表格新增
+    async sheet_add(data) { return await request({ api: urls.sheet_add, params: data }) }
+    /// 表格编辑
+    async sheet_edit(data) { return await request({ api: urls.sheet_edit, params: data }) }
+    /// 表格文件上传
+    async sheet_upload(data) {
+        return await request({ api: urls.sheet_upload, data: data, headers: {'Content-Type': 'multipart/form-data'} })
+    }
+    /// 表格列表
+    async sheet_list(data) { return await request({ api: urls.sheet_list, params: data }) }
+    /// 表格删除
+    async sheet_del(data) { return await request({ api: urls.sheet_del, params: data }) }
+    /// 表格字段
+    async sheet_fields(data) { return await request({ api: urls.sheet_fields, params: data }) }
+    /// 表格模板
+    async sheet_templates(data) { return await request({ api: urls.sheet_templates, params: data }) }
+    /// 表格字段列表
+    async sheet_field_list(data) { return await request({ api: urls.sheet_field_list, params: data }) }
+    /// 表格字段删除
+    async sheet_field_del(data) { return await request({ api: urls.sheet_field_del, params: data }) }
+    /// 表格字段新增
+    async sheet_field_add(data) { return await request({ api: urls.sheet_field_add, params: data }) }
+    /// 表格字段编辑
+    async sheet_field_edit(data) { return await request({ api: urls.sheet_field_edit, params: data }) }
+    /// 表格模板列表
+    async sheet_tmpl_list(data) { return await request({ api: urls.sheet_tmpl_list, params: data }) }
+    /// 表格模板删除
+    async sheet_tmpl_del(data) { return await request({ api: urls.sheet_tmpl_del, params: data }) }
+    /// 表格模板新增
+    async sheet_tmpl_add(data) { return await request({ api: urls.sheet_tmpl_add, params: data }) }
 }
 
 export default new API()

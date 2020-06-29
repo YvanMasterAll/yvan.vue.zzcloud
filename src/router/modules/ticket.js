@@ -7,16 +7,16 @@ const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 const meta = { auth: setting.menu.auth }
 
 export default {
-    path: '/ticket',
-    name: 'ticket',
-    redirect: { name: 'ticket-commit' },
+    path: '/oa/ticket',
+    name: 'oa-ticket',
+    redirect: { name: 'oa-ticket-commit' },
     component: layoutHeaderAside,
     children: (pre => [
         {
             path: 'info',
             name: `${pre}info`,
             hidden: true,
-            component: _import('ticket/info'),
+            component: _import('oa/ticket/info'),
             meta: {
                 ...meta,
                 auth: false,
@@ -26,7 +26,7 @@ export default {
         }, {
             path: 'panel',
             name: `${pre}panel`,
-            component: _import('ticket/panel'),
+            component: _import('oa/ticket/panel'),
             meta: {
                 ...meta,
                 title: '工单面板',
@@ -35,7 +35,7 @@ export default {
         }, {
             path: 'add',
             name: `${pre}add`,
-            component: _import('ticket/add'),
+            component: _import('oa/ticket/add'),
             meta: {
                 ...meta,
                 auth: false,
@@ -45,25 +45,27 @@ export default {
         }, {
             path: 'commit',
             name: `${pre}commit`,
-            component: _import('ticket/commit'),
+            component: _import('oa/ticket/commit'),
             meta: {
                 ...meta,
                 title: '我发布的工单',
                 cache: true
             }
-        }, {
-            path: 'hold',
-            name: `${pre}hold`,
-            component: _import('ticket/hold'),
-            meta: {
-                ...meta,
-                title: '我待办的工单',
-                cache: true
-            }
-        }, {
-            path: 'stay',
-            name: `${pre}stay`,
-            component: _import('ticket/stay'),
+        }, 
+        // {
+        //     path: 'hold',
+        //     name: `${pre}hold`,
+        //     component: _import('oa/ticket/hold'),
+        //     meta: {
+        //         ...meta,
+        //         title: '我待办的工单',
+        //         cache: true
+        //     }
+        // }, 
+        {
+            path: 'todo',
+            name: `${pre}todo`,
+            component: _import('oa/ticket/todo'),
             meta: {
                 ...meta,
                 title: '待处理的工单',
@@ -72,7 +74,7 @@ export default {
         }, {
             path: 'handle',
             name: `${pre}handle`,
-            component: _import('ticket/handle'),
+            component: _import('oa/ticket/handle'),
             meta: {
                 ...meta,
                 title: '我处理的工单',
@@ -81,12 +83,12 @@ export default {
         }, {
             path: 'list',
             name: `${pre}list`,
-            component: _import('ticket/list'),
+            component: _import('oa/ticket/list'),
             meta: {
                 ...meta,
                 title: '所有工单列表',
                 cache: true
             }
         }
-    ])('ticket-')
+    ])('oa-ticket-')
 }

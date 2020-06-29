@@ -7,7 +7,7 @@
         >
             <slot name="header" />
         </div>
-        <div class="d2-container-full__body" ref="body">
+        <div class="d2-container-full__body" :class="{'is-spacious': spacious}" ref="body">
             <slot />
         </div>
         <div

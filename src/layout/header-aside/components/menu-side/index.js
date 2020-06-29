@@ -1,66 +1,48 @@
 import { mapState } from 'vuex'
 import menuMixin from '../mixin/menu'
-import { elMenuItem, elSubmenu } from '../libs/util.menu'
+import { createMenu } from '../libs/util.menu'
 import BScroll from 'better-scroll'
 
 export default {
     name: 'd2-layout-header-aside-menu-side',
     mixins: [menuMixin],
-    render(createElement) {
-        return createElement(
-            'div',
-            { attrs: { class: 'd2-layout-header-aside-menu-side' } },
-            [
-                createElement(
-                    'el-menu',
-                    {
-                        props: {
-                            collapse: this.asideCollapse,
-                            uniqueOpened: true,
-                            defaultActive: this.active
-                        },
-                        ref: 'menu',
-                        on: { select: this.handleMenuSelect }
-                    },
-                    this.aside.map(menu =>
-                        (menu.children === undefined
-                            ? elMenuItem
-                            : elSubmenu
-                        ).call(this, createElement, menu, this.active)
-                    )
-                ),
-                ...(this.aside.length === 0 && !this.asideCollapse
-                    ? [
-                          createElement(
-                              'div',
-                              {
-                                  attrs: {
-                                      class:
-                                          'd2-layout-header-aside-menu-empty',
-                                      flex: 'dir:top main:center cross:center'
-                                  }
-                              },
-                              [
-                                  createElement('d2-icon', {
-                                      props: { name: 'inbox' }
-                                  }),
-                                  createElement('span', {}, '没有侧栏菜单')
-                              ]
-                          )
-                      ]
-                    : [])
-            ]
+    render(h) {
+        return (
+            <div class="d2-layout-header-aside-menu-side">
+                <el-menu
+                    collapse={this.asideCollapse}
+                    collapseTransition={this.asideTransition}
+                    uniqueOpened={true}
+                    defaultActive={this.$route.fullPath}
+                    ref="menu"
+                    onSelect={this.handleMenuSelect}
+                >
+                    {this.aside.map(menu => createMenu.call(this, h, menu))}
+                </el-menu>
+                {this.aside.length === 0 && !this.asideCollapse ? (
+                    <div
+                        class="d2-layout-header-aside-menu-empty"
+                        flex="dir:top main:center cross:center"
+                    >
+                        <d2-icon name="inbox"></d2-icon>
+                        <span>没有侧栏菜单</span>
+                    </div>
+                ) : null}
+            </div>
         )
     },
     data() {
         return {
-            active: '',
             asideHeight: 300,
             BS: null
         }
     },
     computed: {
-        ...mapState('d2admin/menu', ['aside', 'asideCollapse'])
+        ...mapState('d2admin/menu', [
+            'aside',
+            'asideCollapse',
+            'asideTransition'
+        ])
     },
     watch: {
         // 折叠和展开菜单的时候销毁 better scroll
@@ -71,18 +53,19 @@ export default {
             }, 500)
         },
         // 监听路由 控制侧边栏激活状态
-        '$route.fullPath': {
-            handler(value) {
-                this.active = value
-                this.$nextTick(() => { // 这段代码已被项目移除, 但是为了让菜单选中效果正常激活, 所以在这里重新加上, 如果有更好的办法可以考虑取代它
-                    if (this.aside.length > 0 && this.$refs.menu) {
-                        // console.log(this.$refs.menu) // 菜单展开折叠还存在异常, 可以尝试通过reference找到修改它的办法
-                        this.$refs.menu.activeIndex = value
-                    }
-                })
-            },
-            immediate: true
-        }
+        // '$route.fullPath': {
+        //     handler(value) {
+        //         this.active = value
+        //         this.$nextTick(() => {
+        //             // 这段代码已被项目移除, 但是为了让菜单选中效果正常激活, 所以在这里重新加上, 如果有更好的办法可以考虑取代它
+        //             if (this.aside.length > 0 && this.$refs.menu) {
+        //                 // console.log(this.$refs.menu) // 菜单展开折叠还存在异常, 可以尝试通过reference找到修改它的办法
+        //                 this.$refs.menu.activeIndex = value
+        //             }
+        //         })
+        //     },
+        //     immediate: true
+        // }
     },
     mounted() {
         this.scrollInit()

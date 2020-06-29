@@ -52,7 +52,6 @@
             v-loading="loading"
             size="mini"
             stripe
-            style="width: 100%;"
             @selection-change="handleSelectionChange"
         >
             <el-table-column type="selection" width="55"> </el-table-column>
