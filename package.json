@@ -55,7 +55,7 @@
     "ua-parser-js": "^0.7.21",
     "v-charts": "^1.19.0",
     "v-contextmenu": "^2.9.0",
-    "validator": "^12.1.0",
+    "validator": "^13.7.0",
     "viser-vue": "^2.4.8",
     "vue": "^2.6.11",
     "vue-grid-layout": "^2.3.7",
