@@ -41,7 +41,7 @@
     "jsonlint": "^1.6.3",
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "mockjs": "^1.1.0",
     "moment": "^2.24.0",
     "nprogress": "^0.2.0",
